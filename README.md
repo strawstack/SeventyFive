@@ -7,3 +7,4 @@ A tale told in 75 parts following the Blind 75 problem set.
 - [ ] set/get localStorage.
 - [ ] Update countdown timer.
 - [ ] Add site data format to help page.
+- [ ] Copy icon.ico from richard.dev and change color to pink.
