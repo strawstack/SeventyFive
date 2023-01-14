@@ -30,6 +30,8 @@ body {
     grid-template-columns: 1fr minmax(0px, 700px) 1fr;
 
     position: relative;
+
+    padding-bottom: 100px;
 }
 
 a.link {
@@ -42,7 +44,7 @@ a.link {
     }
 
     .top-left {
-        position: absolute;
+        position: fixed;
         top: 10px;
         left: 20px;
     }
@@ -53,7 +55,7 @@ a.link {
     }
 
 .help-icon {
-    position: absolute;
+    position: fixed;
     top: 10px;
     right: 20px;
     border: 2px white solid;
@@ -98,6 +100,10 @@ p {
         background: #111;
         padding: 0px 5px;
         border-radius: 4px;
+    }
+
+    .left-indent {
+        margin-left: 30px;
     }
 
 .btn {
