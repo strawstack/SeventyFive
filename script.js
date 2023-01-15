@@ -123,6 +123,8 @@ function render() {
             elemProgress.textContent = partsComplete;
             if (partsComplete > 1) {
                 btnHighestSolved.style.display = "inline-block";
+            } else {
+                btnHighestSolved.style.display = "none";
             }
         }
 
