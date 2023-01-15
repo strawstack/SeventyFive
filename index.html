@@ -15,29 +15,74 @@
 
         <div class="content-column">
             <h1>SeventyFive</h1>
-            <p>A tale told in 75 parts inspired by the Blind 75 problem set.</p>
+            <p>A tale told in 75 parts; inspired by the Blind 75 problem set.</p>
 
-            <a class="btn" href="part/1/index.html">Begin</a>
+            <div class="btn begin">Begin</div> <br>
+            <div class="btn highestSolved">Skip to Highest Solved Part</div>
 
             <div class="status-area">
                 <div class="row">
                     <div class="label">Start Timestamp:</div>
-                    <div class="data">00:00:00</div>
+                    <div class="data timestamp">00:00:00</div>
                 </div>
                 <div class="row">
                     <div class="label">Parts Completed:</div>
-                    <div class="data">23</div>
+                    <div class="data progress">0</div>
                 </div>
                 <div class="row">
                     <div class="label">Next Part Unlock:</div>
-                    <div class="data">00:00:00</div>
+                    <div class="data nextUnlock">00:00:00</div>
                 </div>
             </div>
 
-            <a class="btn">Reset Timestamp</a>
-            <a class="btn">Reset Progress</a>
+            <div class="btn resetTimestamp">Reset Timestamp</div>
+            <div class="btn resetProgress">Reset Progress</div>
 
             <script src="script.js"></script>
+            <script>
+                const btnTimestamp = document.querySelector(".btn.resetTimestamp");
+                const btnProgress  = document.querySelector(".btn.resetProgress");
+                const btnBegin  = document.querySelector(".btn.begin");
+                const btnHighestSolved  = document.querySelector(".btn.highestSolved");
+
+                btnTimestamp.addEventListener("click", e => {
+                    updateLocalStorage("timestamp", new Date());
+                });
+
+                btnProgress.addEventListener("click", e => {
+                    updateLocalStorage("progress", getInitParts());
+                });
+
+                btnBegin.addEventListener("click", e => {
+                    // Init localStorage if not set
+                    if (getLocalStorage() === null) {
+                        setLocalStorage({
+                            timestamp: new Date(),
+                            progress: getInitParts()
+                        }, false);
+                    }
+                    window.location.href = "part/1/index.html";
+                });
+
+                btnHighestSolved.addEventListener("click", e => {
+                    const ls = getLocalStorage();
+                    let highestPart = 1;
+                    for (let i in ls["progress"]) {
+                        if (ls["progress"][i]) {
+                            highestPart = parseInt(i, 10) + 1;
+                        }
+                    }
+                    window.location.href = `part/${highestPart}/index.html`;
+                });
+
+                const elemNextUnlock = document.querySelector(".data.nextUnlock");
+                setInterval(() => {
+                    let ls = getLocalStorage();
+                    if (ls !== null) {
+                        elemNextUnlock.textContent = updateNextUnlock();
+                    }
+                }, 1000);
+            </script>
         </div>
     </body>
 </html>

@@ -26,10 +26,76 @@
                 href="https://leetcode.com/problems/two-sum" 
                 target="_blank">leetcode.com/problems/two-sum</a>
 
-            <a class="btn" href="#">Prev</a>
-            <a class="btn" href="../2/index.html">Next</a>
+            <div class="checkbox-row">
+                <input type="checkbox" class="checkbox" />
+                <span>Complete</span>
+            </div>
+
+            <div class="btn prev">Prev</div>
+            <div class="btn next">Next</div>
 
             <script src="../../script.js"></script>
+
+            <script>
+                const PART = 1;
+
+                const btnCheckbox = document.querySelector(".checkbox");
+                const btnPrev = document.querySelector(".btn.prev");
+                const btnNext = document.querySelector(".btn.next");
+
+                let ls = getLocalStorage();
+
+                // User has not started yet
+                if (ls === null) {
+                    window.location.href = "../../index.html";
+                }
+
+                btnCheckbox.checked = ls["progress"][PART - 1];
+
+                btnCheckbox.addEventListener("click", e => {
+                    updateProgress(PART, btnCheckbox.checked);
+                });
+
+                btnPrev.addEventListener("click", e => {
+                    if (PART == 1) {
+                        window.location.href = "../../index.html";
+                    } else {
+                        window.location.href = `../${PART - 1}/index.html`;
+                    }
+                });
+
+                if (PART < 75 && PART + 1 > getMaxUnlockedPart()) {
+                    const updateLocked = () => {
+                        let t = updateNextUnlock();
+                        btnNext.textContent = `Next Part Locked ${t}`;
+
+                        if (PART + 1 > getMaxUnlockedPart()) {
+                            setTimeout(() => {
+                                updateLocked();
+                            }, 1000);
+                        } else {
+                            btnNext.textContent = "Next";
+                            btnNext.addEventListener("click", e => {
+                                if (PART == 75) {
+                                    window.location.href = "../../index.html";
+                                } else {
+                                    window.location.href = `../${PART + 1}/index.html`;
+                                }
+                            });                            
+                        }
+                    };
+                    updateLocked();
+
+                } else {
+                    btnNext.addEventListener("click", e => {
+                        if (PART == 75) {
+                            window.location.href = "../../index.html";
+                        } else {
+                            window.location.href = `../${PART + 1}/index.html`;
+                        }
+                    });
+                }
+            </script>
         </div>
     </body>
 </html>
