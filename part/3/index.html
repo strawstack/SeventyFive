@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>SeventyFive</title>
+        <link rel="stylesheet" href="../../style.css">
+    </head>
+    <body>
+
+        <a class="top-left link" href="../../index.html">SeventyFive</a>
+        <a class="help-icon" href="../../help.html">?</a>
+
+        <div class="content-column">
+            <h1>Part Three</h1>
+            <p>
+                So the dating thing didn’t work out. I think their algorithm might have been too simple, but hey, if it was fast and effective, they wouldn’t have any customers anymore would they. I leaned back in my chair. I had my headset render a cyberpunk city at night custom generated to help me relax by Nevi: one of those bots that calls me Seventy I mentioned earlier. The city glowed a nice gradient of neon pink and purple. I turned my head and looked down along the pedestrian walkway raised a few stories above the streets below. Oh, if you’re reading this around the time I think you are, this headset should impress you, you don’t have them yet, and the one you get next year won’t be that great off the start, but, once they get it right, things change; well, they appear to change, I should say. I’m still sitting in the same high-end computer chair I had before the headset, and still paying the same rent - slightly less actually because I didn’t pay for a good view outside anymore, but nearly the same. I feel very different after getting a headset; I feel like I can change reality. Before the headset reality seemed so concrete, cold, and static. And I’m writing this by the way because it’s hard to pin down exactly how I feel these days. My therapy bot works better if you seed it occasionally with your past experiences; I asked how it worked once: something about calculating the experience derivative and solving a system of linear equations. I should’ve added ‘explain like I’m five’ to the prompt.
+            </p>
+            <p>
+                I had trouble getting started writing. I spent a day staring at a blank page. I forgot to turn night shift on too, so I was up for like twenty-two hours. Therapy bot unblocked me though. It said imagine you’re talking to someone from the past, and telling them about your life, your past experiences, or anything you feel like communicating. So, I started doing that, and Therapy bot’s been performing better; I’ve been performing better, so I’ll keep going.
+            </p>
+            <p>
+                My headset said 10% battery. I plugged it in. I said I was a “Child of The Corporation”. I was born with a blindfold on, and I never knew anything different.  
+            </p>
+            <p>
+                Wearing a headset, in some sense, is like wearing a blindfold. When you put it on, you can’t really see anymore unless you peek out the bottom, but, suppose you don’t peek out the bottom, then you’re free to imagine whatever world you want out there. If you wear the blindfold long enough, the world you imagined appears rendered on the inside of your eye lids. 
+            </p>
+            <p>
+                Therapy bot’s avatar approached, sat down beside me on the bench, on the pedestrian walkway, a few stories above the city. It has looked at my recent writings and came up with a treatment plan. 
+            </p>
+            <p>
+                Imagine your life as a series of tokens. Each token can be represented by one lowercase letter. It may bring you some comfort to know what each token as it appears in your life will have a matching token appear in reverse order later in your life, and some won’t. Thinking back on your experiences, can you find the longest sequence of experiences where these tokens have matched up in what one might call a palindromic-substring?
+            </p>
+            <p>
+                Yeah, Therapy bot wasn't knocking it out of the park yet with its treatment plans, but I decided to give it a try. I pulled up a tokenized list of my memories…
+            </p>
+
+            <a class="link problem" 
+                href="https://leetcode.com/problems/longest-palindromic-substring" 
+                target="_blank">leetcode.com/problems/longest-palindromic-substring</a>
+
+            <div class="checkbox-row">
+                <input type="checkbox" class="checkbox" />
+                <span>Complete</span>
+            </div>
+
+            <div class="btn prev">Prev</div>
+            <div class="btn next">Next</div>
+
+            <script src="../../script.js"></script>
+
+            <script>
+                const PART = 3;
+
+                const btnCheckbox = document.querySelector(".checkbox");
+                const btnPrev = document.querySelector(".btn.prev");
+                const btnNext = document.querySelector(".btn.next");
+
+                let ls = getLocalStorage();
+
+                // User has not started yet
+                if (ls === null) {
+                    window.location.href = "../../index.html";
+                }
+
+                btnCheckbox.checked = ls["progress"][PART - 1];
+
+                btnCheckbox.addEventListener("click", e => {
+                    updateProgress(PART, btnCheckbox.checked);
+                });
+
+                btnPrev.addEventListener("click", e => {
+                    if (PART == 1) {
+                        window.location.href = "../../index.html";
+                    } else {
+                        window.location.href = `../${PART - 1}/index.html`;
+                    }
+                });
+
+                if (PART < 75 && PART + 1 > getMaxUnlockedPart()) {
+                    const updateLocked = () => {
+                        let t = updateNextUnlock();
+                        btnNext.textContent = `Next Part Locked ${t}`;
+
+                        if (PART + 1 > getMaxUnlockedPart()) {
+                            setTimeout(() => {
+                                updateLocked();
+                            }, 1000);
+                        } else {
+                            btnNext.textContent = "Next";
+                            btnNext.addEventListener("click", e => {
+                                if (PART == 75) {
+                                    window.location.href = "../../index.html";
+                                } else {
+                                    window.location.href = `../${PART + 1}/index.html`;
+                                }
+                            });                            
+                        }
+                    };
+                    updateLocked();
+
+                } else {
+                    btnNext.addEventListener("click", e => {
+                        if (PART == 75) {
+                            window.location.href = "../../index.html";
+                        } else {
+                            window.location.href = `../${PART + 1}/index.html`;
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </body>
+</html>
